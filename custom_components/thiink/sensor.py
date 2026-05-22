@@ -231,9 +231,18 @@ async def async_setup_entry(
     ems_coord: DataUpdateCoordinator[EmsData] = coordinators["ems"]
     status_coord: DataUpdateCoordinator[StatusData] = coordinators["status"]
 
+    device_info = DeviceInfo(
+        identifiers={(DOMAIN, entry.entry_id)},
+        name=entry.title,
+        manufacturer="Thiink",
+        model="Connection Unit",
+        hw_version=status_coord.data.hw_version,
+        sw_version=status_coord.data.fw_version,
+    )
+
     async_add_entities(
-        [ThiinkSensor(ems_coord, desc, entry) for desc in EMS_SENSORS]
-        + [ThiinkSensor(status_coord, desc, entry) for desc in STATUS_SENSORS]
+        [ThiinkSensor(ems_coord, desc, device_info) for desc in EMS_SENSORS]
+        + [ThiinkSensor(status_coord, desc, device_info) for desc in STATUS_SENSORS]
     )
 
 
@@ -245,17 +254,12 @@ class ThiinkSensor(CoordinatorEntity, SensorEntity):
         self,
         coordinator: DataUpdateCoordinator,
         description: ThiinkSensorEntityDescription,
-        entry: ConfigEntry,
+        device_info: DeviceInfo,
     ) -> None:
         super().__init__(coordinator)
         self.entity_description = description
-        self._attr_unique_id = f"{entry.entry_id}_{description.key}"
-        self._attr_device_info = DeviceInfo(
-            identifiers={(DOMAIN, entry.entry_id)},
-            name=entry.title,
-            manufacturer="Thiink",
-            model="Connection Unit",
-        )
+        self._attr_unique_id = f"{next(iter(device_info['identifiers']))[1]}_{description.key}"
+        self._attr_device_info = device_info
 
     @property
     def native_value(self) -> Any:

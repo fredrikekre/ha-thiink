@@ -22,6 +22,7 @@ from homeassistant.const import (
     UnitOfTemperature,
 )
 from homeassistant.core import HomeAssistant
+import homeassistant.helpers.device_registry as dr
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity, DataUpdateCoordinator
@@ -233,6 +234,7 @@ async def async_setup_entry(
 
     device_info = DeviceInfo(
         identifiers={(DOMAIN, entry.entry_id)},
+        connections={(dr.CONNECTION_NETWORK_MAC, status.device_id)} if status and status.device_id else set(),
         name=entry.title,
         manufacturer="Thiink",
         model="Connection Unit",

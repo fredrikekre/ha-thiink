@@ -13,8 +13,8 @@ class GridDetails:
     voltage: PhaseValues
     power: PhaseValues
     current: PhaseValues
-    energy_import: float  # Wh, cumulative
-    energy_export: float  # Wh, cumulative
+    energy_import: float  # kWh, cumulative
+    energy_export: float  # kWh, cumulative
 
 
 @dataclass

@@ -119,7 +119,7 @@ EMS_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
     ThiinkSensorEntityDescription(
         key="grid_energy_import",
         translation_key="grid_energy_import",
-        native_unit_of_measurement=UnitOfEnergy.WATT_HOUR,
+        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL_INCREASING,
         value_fn=lambda d: d.grid.energy_import,
@@ -127,7 +127,7 @@ EMS_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
     ThiinkSensorEntityDescription(
         key="grid_energy_export",
         translation_key="grid_energy_export",
-        native_unit_of_measurement=UnitOfEnergy.WATT_HOUR,
+        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL_INCREASING,
         value_fn=lambda d: d.grid.energy_export,

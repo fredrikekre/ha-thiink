@@ -1,0 +1,45 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Thiink",
+        "data": {
+          "host": "Host (IP address or hostname)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to device. Check the host and ensure the device is reachable.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "Device is already configured."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "grid_power": { "name": "Grid Power" },
+      "grid_l1_power": { "name": "Grid L1 Power" },
+      "grid_l2_power": { "name": "Grid L2 Power" },
+      "grid_l3_power": { "name": "Grid L3 Power" },
+      "grid_l1_voltage": { "name": "Grid L1 Voltage" },
+      "grid_l2_voltage": { "name": "Grid L2 Voltage" },
+      "grid_l3_voltage": { "name": "Grid L3 Voltage" },
+      "grid_l1_current": { "name": "Grid L1 Current" },
+      "grid_l2_current": { "name": "Grid L2 Current" },
+      "grid_l3_current": { "name": "Grid L3 Current" },
+      "grid_energy_import": { "name": "Grid Energy Import" },
+      "grid_energy_export": { "name": "Grid Energy Export" },
+      "pv_power": { "name": "PV Power" },
+      "battery_power": { "name": "Battery Power" },
+      "battery_soc": { "name": "Battery State of Charge" },
+      "battery_voltage": { "name": "Battery Voltage" },
+      "battery_capacity": { "name": "Battery Capacity" },
+      "load_power": { "name": "Load Power" },
+      "inverter_temperature": { "name": "Inverter Temperature" },
+      "battery_temperature": { "name": "Battery Temperature" },
+      "cabinet_temperature": { "name": "Cabinet Temperature" },
+      "cabinet_humidity": { "name": "Cabinet Humidity" }
+    }
+  }
+}

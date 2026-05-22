@@ -1,0 +1,19 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Thiink",
+        "data": {
+          "host": "Host"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "[%key:component::thiink::config::error::cannot_connect%]",
+      "unknown": "[%key:component::thiink::config::error::unknown%]"
+    },
+    "abort": {
+      "already_configured": "[%key:component::thiink::config::abort::already_configured%]"
+    }
+  }
+}

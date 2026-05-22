@@ -1,0 +1,10 @@
+{
+  "domain": "thiink",
+  "name": "Thiink",
+  "version": "0.1.0",
+  "config_flow": true,
+  "documentation": "",
+  "requirements": [],
+  "iot_class": "local_polling",
+  "codeowners": []
+}

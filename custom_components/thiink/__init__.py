@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 from .pythiink import ThiinkClient
+from .config_flow import CONF_BASE_URL
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_HOST, Platform
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
@@ -15,7 +16,7 @@ PLATFORMS = [Platform.SENSOR]
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     session = async_get_clientsession(hass)
-    client = ThiinkClient(entry.data[CONF_HOST], session)
+    client = ThiinkClient(entry.data[CONF_BASE_URL], session)
 
     ems = ThiinkEmsCoordinator(hass, client)
     status = ThiinkStatusCoordinator(hass, client)

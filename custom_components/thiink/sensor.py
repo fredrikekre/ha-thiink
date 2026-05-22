@@ -155,7 +155,7 @@ EMS_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         key="battery_soc",
         translation_key="battery_soc",
         native_unit_of_measurement=PERCENTAGE,
-        device_class=SensorDeviceClass.BATTERY,
+        device_class=None,
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda d: d.soc,
     ),

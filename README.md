@@ -1,6 +1,6 @@
 # ha-thiink
 
-Unofficial Home Assistant integration for the [Thiink](https://thiink.io) Connection Unit (CU) — a local energy management device that controls battery inverters based on spot prices.
+Unofficial Home Assistant integration for the [Thiink](https://thiink.io) Control Unit (CU) — a local energy management device that controls battery inverters based on spot prices.
 
 > **Disclaimer:** This project is not affiliated with, endorsed by, or connected to Thiink in any way. It is an independent, community-built integration that uses the device's undocumented local HTTP API.
 
@@ -43,7 +43,7 @@ Unofficial Home Assistant integration for the [Thiink](https://thiink.io) Connec
 ## Requirements
 
 - Home Assistant 2024.1 or later
-- Thiink Connection Unit on your local network (reachable by HTTP)
+- Thiink Control Unit on your local network (reachable by HTTP)
 - No cloud account or internet access required for the integration
 
 ## Structure

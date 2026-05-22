@@ -5,7 +5,7 @@ from .models import BatteryDetails, EmsData, GridDetails, PhaseValues, StatusDat
 
 
 class ThiinkClient:
-    """Async HTTP client for the Thiink Connection Unit local API."""
+    """Async HTTP client for the Thiink Control Unit local API."""
 
     def __init__(self, base_url: str, session: aiohttp.ClientSession) -> None:
         self._base = base_url.rstrip("/")

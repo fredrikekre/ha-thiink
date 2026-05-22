@@ -231,15 +231,16 @@ async def async_setup_entry(
     coordinators = hass.data[DOMAIN][entry.entry_id]
     ems_coord: DataUpdateCoordinator[EmsData] = coordinators["ems"]
     status_coord: DataUpdateCoordinator[StatusData] = coordinators["status"]
+    status = status_coord.data
 
     device_info = DeviceInfo(
         identifiers={(DOMAIN, entry.entry_id)},
         connections={(dr.CONNECTION_NETWORK_MAC, status.device_id)} if status and status.device_id else set(),
         name=entry.title,
         manufacturer="Thiink",
-        model="Connection Unit",
-        hw_version=status_coord.data.hw_version,
-        sw_version=status_coord.data.fw_version,
+        model="Thiink Control Unit",
+        hw_version=status.hw_version if status else None,
+        sw_version=status.fw_version if status else None,
     )
 
     async_add_entities(

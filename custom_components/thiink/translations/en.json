@@ -41,6 +41,9 @@
       "cabinet_temperature": { "name": "Cabinet Temperature" },
       "cabinet_humidity": { "name": "Cabinet Humidity" },
       "firmware_version": { "name": "Firmware Version" }
+    },
+    "binary_sensor": {
+      "eth_connected": { "name": "Ethernet Connected" }
     }
   }
 }

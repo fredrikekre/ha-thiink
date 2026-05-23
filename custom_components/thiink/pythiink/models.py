@@ -47,3 +47,4 @@ class StatusData:
     fw_version: str
     hw_version: str
     device_id: str
+    eth_status: str             # "connected" / "disconnected"

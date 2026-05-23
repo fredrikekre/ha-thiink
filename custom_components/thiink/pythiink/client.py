@@ -46,6 +46,7 @@ class ThiinkClient:
             fw_version=raw["info"]["fw_version"],
             hw_version=raw["info"]["hw_version"],
             device_id=raw["info"]["device_id"],
+            eth_status=raw["eth"]["status"],
         )
 
     async def _get(self, path: str) -> dict:

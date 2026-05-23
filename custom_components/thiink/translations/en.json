@@ -39,7 +39,8 @@
       "inverter_temperature": { "name": "Inverter Temperature" },
       "battery_temperature": { "name": "Battery Temperature" },
       "cabinet_temperature": { "name": "Cabinet Temperature" },
-      "cabinet_humidity": { "name": "Cabinet Humidity" }
+      "cabinet_humidity": { "name": "Cabinet Humidity" },
+      "firmware_version": { "name": "Firmware Version" }
     }
   }
 }

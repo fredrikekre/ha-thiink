@@ -21,7 +21,7 @@ from homeassistant.const import (
     UnitOfPower,
     UnitOfTemperature,
 )
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 import homeassistant.helpers.device_registry as dr
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -220,6 +220,14 @@ STATUS_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda d: d.cabinet_humidity,
     ),
+    ThiinkSensorEntityDescription(
+        key="firmware_version",
+        translation_key="firmware_version",
+        native_unit_of_measurement=None,
+        device_class=None,
+        state_class=None,
+        value_fn=lambda d: d.fw_version,
+    ),
 )
 
 
@@ -247,6 +255,23 @@ async def async_setup_entry(
         [ThiinkSensor(ems_coord, desc, device_info) for desc in EMS_SENSORS]
         + [ThiinkSensor(status_coord, desc, device_info) for desc in STATUS_SENSORS]
     )
+
+    device_registry = dr.async_get(hass)
+
+    @callback
+    def _update_device_info(_now: Any = None) -> None:
+        data = status_coord.data
+        if not data:
+            return
+        device_entry = device_registry.async_get_device(identifiers={(DOMAIN, entry.entry_id)})
+        if device_entry:
+            device_registry.async_update_device(
+                device_entry.id,
+                sw_version=data.fw_version,
+                hw_version=data.hw_version,
+            )
+
+    entry.async_on_unload(status_coord.async_add_listener(_update_device_info))
 
 
 class ThiinkSensor(CoordinatorEntity, SensorEntity):

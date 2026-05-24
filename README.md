@@ -12,7 +12,8 @@ Unofficial Home Assistant integration for the [Thiink](https://thiink.io) Contro
 - Sensors covering grid, battery, PV, load, and device environment
 - Per-phase grid measurements (voltage, current, power) for three-phase installations
 - Grid energy import/export counters compatible with the HA Energy Dashboard
-- Two polling intervals: EMS data every 10 s, device status every 60 s
+- EMS schedule sensors reflecting the optimizer's currently active slot
+- Two polling intervals: EMS data every 10 s, device status and schedule every 60 s
 
 ## Installation
 
@@ -43,6 +44,22 @@ Unofficial Home Assistant integration for the [Thiink](https://thiink.io) Contro
 | Device Internal Humidity | % | Internal CU sensor |
 | Firmware Version | | |
 | Ethernet Connected | | Binary sensor |
+
+### Schedule sensors (active EMS slot)
+
+| Entity | Unit | Notes |
+|--------|------|-------|
+| Schedule Mode | | `forced` or `balancing` |
+| Schedule Dispatch | W | Target battery output (forced mode); positive = discharge, negative = charge |
+| Schedule Charge Trigger | W | Grid export threshold to start charging (balancing mode) |
+| Schedule Discharge Trigger | W | Grid import threshold to start discharging (balancing mode) |
+| Schedule Max Charge | W | Maximum battery charge rate |
+| Schedule Max Discharge | W | Maximum battery discharge rate |
+| Schedule Max Export | W | Grid connection export cap |
+| Schedule Max Import | W | Grid connection import cap |
+| Schedule Min SoC | % | Minimum allowed state of charge |
+| Schedule Max SoC | % | Maximum allowed state of charge |
+| Schedule Hysteresis | W | Trigger deadband to prevent rapid switching |
 
 ## Requirements
 

@@ -9,7 +9,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import DOMAIN
-from .coordinator import ThiinkEmsCoordinator, ThiinkStatusCoordinator
+from .coordinator import ThiinkEmsCoordinator, ThiinkScheduleCoordinator, ThiinkStatusCoordinator
 
 PLATFORMS = [Platform.SENSOR, Platform.BINARY_SENSOR]
 
@@ -20,11 +20,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     ems = ThiinkEmsCoordinator(hass, client)
     status = ThiinkStatusCoordinator(hass, client)
+    schedule = ThiinkScheduleCoordinator(hass, client)
 
     await ems.async_config_entry_first_refresh()
     await status.async_config_entry_first_refresh()
+    await schedule.async_config_entry_first_refresh()
 
-    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = {"ems": ems, "status": status}
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = {"ems": ems, "status": status, "schedule": schedule}
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True
 

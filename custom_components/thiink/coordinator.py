@@ -1,7 +1,7 @@
 import logging
 from datetime import timedelta
 
-from .pythiink import ThiinkClient, ThiinkConnectionError, EmsData, StatusData
+from .pythiink import ThiinkClient, ThiinkConnectionError, EmsData, ScheduleData, StatusData
 
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
@@ -19,6 +19,20 @@ class ThiinkEmsCoordinator(DataUpdateCoordinator[EmsData]):
     async def _async_update_data(self) -> EmsData:
         try:
             return await self._client.get_ems()
+        except ThiinkConnectionError as err:
+            raise UpdateFailed(err) from err
+
+
+class ThiinkScheduleCoordinator(DataUpdateCoordinator[ScheduleData]):
+    """Polls schedule data every 60 seconds."""
+
+    def __init__(self, hass: HomeAssistant, client: ThiinkClient) -> None:
+        super().__init__(hass, _LOGGER, name="Thiink Schedule", update_interval=timedelta(seconds=60))
+        self._client = client
+
+    async def _async_update_data(self) -> ScheduleData:
+        try:
+            return await self._client.get_schedule()
         except ThiinkConnectionError as err:
             raise UpdateFailed(err) from err
 

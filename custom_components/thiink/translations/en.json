@@ -40,7 +40,18 @@
       "battery_temperature": { "name": "Battery Temperature" },
       "device_temperature": { "name": "Device Internal Temperature" },
       "device_humidity": { "name": "Device Internal Humidity" },
-      "firmware_version": { "name": "Firmware Version" }
+      "firmware_version": { "name": "Firmware Version" },
+      "schedule_mode": { "name": "Schedule Mode" },
+      "schedule_dispatch": { "name": "Schedule Dispatch" },
+      "schedule_trig_charge": { "name": "Schedule Charge Trigger" },
+      "schedule_trig_discharge": { "name": "Schedule Discharge Trigger" },
+      "schedule_max_charge": { "name": "Schedule Max Charge" },
+      "schedule_max_discharge": { "name": "Schedule Max Discharge" },
+      "schedule_max_export": { "name": "Schedule Max Export" },
+      "schedule_max_import": { "name": "Schedule Max Import" },
+      "schedule_min_soc": { "name": "Schedule Min SoC" },
+      "schedule_max_soc": { "name": "Schedule Max SoC" },
+      "schedule_hysteresis": { "name": "Schedule Hysteresis" }
     },
     "binary_sensor": {
       "eth_connected": { "name": "Ethernet Connected" }

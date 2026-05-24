@@ -48,3 +48,27 @@ class StatusData:
     hw_version: str
     device_id: str
     eth_status: str             # "connected" / "disconnected"
+
+
+@dataclass
+class ScheduleEntry:
+    """A single EMS schedule slot from GET /data?key=schedule."""
+
+    mode: str           # "forced" or "balancing"
+    dispatch: int       # W, positive = discharge, negative = charge (forced mode)
+    trig_charge: int    # W, grid export threshold to start charging (balancing mode)
+    trig_discharge: int # W, grid import threshold to start discharging (balancing mode)
+    max_charge: int     # W
+    max_discharge: int  # W
+    max_export: int     # W
+    max_import: int     # W
+    min_soc: int        # %
+    max_soc: int        # %
+    hysteresis: int     # W
+
+
+@dataclass
+class ScheduleData:
+    """Parsed schedule from GET /data?key=schedule."""
+
+    active: ScheduleEntry  # The currently active slot (active: true)

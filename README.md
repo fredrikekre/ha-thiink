@@ -26,40 +26,40 @@ Unofficial Home Assistant integration for the [Thiink](https://thiink.io) Contro
 
 | Entity | Unit | Notes |
 |--------|------|-------|
-| Grid Power | W | Negative = export |
-| Grid L1/L2/L3 Power | W | |
-| Grid L1/L2/L3 Voltage | V | |
-| Grid L1/L2/L3 Current | A | |
-| Grid Energy Import | kWh | Cumulative |
-| Grid Energy Export | kWh | Cumulative |
-| PV Power | W | From inverter via Modbus |
-| Battery Power | W | |
-| Battery State of Charge | % | |
-| Battery Voltage | V | |
-| Battery Capacity | kWh | |
-| Load Power | W | |
-| Inverter Temperature | °C | |
-| Battery Temperature | °C | |
-| Device Internal Temperature | °C | Internal CU sensor |
-| Device Internal Humidity | % | Internal CU sensor |
-| Firmware Version | | |
-| Ethernet Connected | | Binary sensor |
+| Grid power | W | Negative = export |
+| Grid L1/L2/L3 power | W | |
+| Grid L1/L2/L3 voltage | V | |
+| Grid L1/L2/L3 current | A | |
+| Grid energy import | kWh | Cumulative |
+| Grid energy export | kWh | Cumulative |
+| PV power | W | |
+| Battery power | W | |
+| Battery state of charge | % | |
+| Battery voltage | V | |
+| Battery capacity | kWh | |
+| Load power | W | |
+| Inverter temperature | °C | |
+| Battery temperature | °C | |
+| Device internal temperature | °C | Internal CU sensor |
+| Device internal humidity | % | Internal CU sensor |
+| Firmware version | | |
+| Ethernet connected | | Binary sensor |
 
 ### Schedule sensors (active EMS slot)
 
 | Entity | Unit | Notes |
 |--------|------|-------|
-| Schedule Mode | | `forced` or `balancing` |
-| Schedule Dispatch | W | Target battery output (forced mode); positive = discharge, negative = charge |
-| Schedule Charge Trigger | W | Grid export threshold to start charging (balancing mode) |
-| Schedule Discharge Trigger | W | Grid import threshold to start discharging (balancing mode) |
-| Schedule Max Charge | W | Maximum battery charge rate |
-| Schedule Max Discharge | W | Maximum battery discharge rate |
-| Schedule Max Export | W | Grid connection export cap |
-| Schedule Max Import | W | Grid connection import cap |
-| Schedule Min SoC | % | Minimum allowed state of charge |
-| Schedule Max SoC | % | Maximum allowed state of charge |
-| Schedule Hysteresis | W | Trigger deadband to prevent rapid switching |
+| Schedule mode | | `forced` or `balancing` |
+| Schedule battery dispatch power | W | Target battery output in forced mode; positive = discharge, negative = charge |
+| Schedule charge trigger | W | Grid export threshold to start charging (balancing mode) |
+| Schedule discharge trigger | W | Grid import threshold to start discharging (balancing mode) |
+| Schedule max charge | W | Maximum battery charge rate |
+| Schedule max discharge | W | Maximum battery discharge rate |
+| Schedule max export | W | Grid connection export cap |
+| Schedule max import | W | Grid connection import cap |
+| Schedule min SoC | % | Minimum allowed state of charge |
+| Schedule max SoC | % | Maximum allowed state of charge |
+| Schedule hysteresis | W | Trigger deadband to prevent rapid switching |
 
 ## Requirements
 

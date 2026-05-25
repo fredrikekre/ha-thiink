@@ -205,16 +205,16 @@ EMS_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
 
 STATUS_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
     ThiinkSensorEntityDescription(
-        key="cabinet_temperature",
-        translation_key="cabinet_temperature",
+        key="device_temperature",
+        translation_key="device_temperature",
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda d: d.cabinet_temperature,
     ),
     ThiinkSensorEntityDescription(
-        key="cabinet_humidity",
-        translation_key="cabinet_humidity",
+        key="device_humidity",
+        translation_key="device_humidity",
         native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.HUMIDITY,
         state_class=SensorStateClass.MEASUREMENT,

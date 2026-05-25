@@ -1,13 +1,15 @@
 # ha-thiink
 
-Unofficial Home Assistant integration for the [Thiink](https://thiink.io) Control Unit (CU) — a local energy management device that controls battery inverters based on spot prices.
+Unofficial Home Assistant integration for the [Thiink](https://thiink.io) Control Unit.
 
-> **Disclaimer:** This project is not affiliated with, endorsed by, or connected to Thiink in any way. It is an independent, community-built integration that uses the device's undocumented local HTTP API.
+> **Disclaimer:** This project is not affiliated with, endorsed by, or connected to Thiink
+> in any way. It is an independent integration that uses the device's undocumented local
+> HTTP API.
 
 ## Features
 
 - Polls the CU's local HTTP API — no cloud dependency
-- 22 sensors covering grid, battery, PV, load, and cabinet environment
+- Sensors covering grid, battery, PV, load, and device environment
 - Per-phase grid measurements (voltage, current, power) for three-phase installations
 - Grid energy import/export counters compatible with the HA Energy Dashboard
 - Two polling intervals: EMS data every 10 s, device status every 60 s
@@ -27,8 +29,8 @@ Unofficial Home Assistant integration for the [Thiink](https://thiink.io) Contro
 | Grid L1/L2/L3 Power | W | |
 | Grid L1/L2/L3 Voltage | V | |
 | Grid L1/L2/L3 Current | A | |
-| Grid Energy Import | Wh | Cumulative |
-| Grid Energy Export | Wh | Cumulative |
+| Grid Energy Import | kWh | Cumulative |
+| Grid Energy Export | kWh | Cumulative |
 | PV Power | W | From inverter via Modbus |
 | Battery Power | W | |
 | Battery State of Charge | % | |
@@ -37,8 +39,10 @@ Unofficial Home Assistant integration for the [Thiink](https://thiink.io) Contro
 | Load Power | W | |
 | Inverter Temperature | °C | |
 | Battery Temperature | °C | |
-| Cabinet Temperature | °C | Internal CU sensor |
-| Cabinet Humidity | % | Internal CU sensor |
+| Device Internal Temperature | °C | Internal CU sensor |
+| Device Internal Humidity | % | Internal CU sensor |
+| Firmware Version | | |
+| Ethernet Connected | | Binary sensor |
 
 ## Requirements
 

@@ -38,8 +38,8 @@
       "load_power": { "name": "Load Power" },
       "inverter_temperature": { "name": "Inverter Temperature" },
       "battery_temperature": { "name": "Battery Temperature" },
-      "cabinet_temperature": { "name": "Cabinet Temperature" },
-      "cabinet_humidity": { "name": "Cabinet Humidity" },
+      "device_temperature": { "name": "Device Internal Temperature" },
+      "device_humidity": { "name": "Device Internal Humidity" },
       "firmware_version": { "name": "Firmware Version" }
     },
     "binary_sensor": {

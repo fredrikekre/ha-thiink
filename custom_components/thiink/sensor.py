@@ -241,8 +241,8 @@ SCHEDULE_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         value_fn=lambda d: d.mode,
     ),
     ThiinkSensorEntityDescription(
-        key="schedule_dispatch",
-        translation_key="schedule_dispatch",
+        key="schedule_battery_dispatch_power",
+        translation_key="schedule_battery_dispatch_power",
         native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,

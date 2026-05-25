@@ -42,7 +42,7 @@
       "device_humidity": { "name": "Device Internal Humidity" },
       "firmware_version": { "name": "Firmware Version" },
       "schedule_mode": { "name": "Schedule Mode" },
-      "schedule_dispatch": { "name": "Schedule Dispatch" },
+      "schedule_battery_dispatch_power": { "name": "Schedule Battery Dispatch Power" },
       "schedule_trig_charge": { "name": "Schedule Charge Trigger" },
       "schedule_trig_discharge": { "name": "Schedule Discharge Trigger" },
       "schedule_max_charge": { "name": "Schedule Max Charge" },

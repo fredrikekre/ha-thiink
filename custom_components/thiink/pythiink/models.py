@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 
 
 @dataclass
@@ -65,10 +66,5 @@ class ScheduleEntry:
     min_soc: int        # %
     max_soc: int        # %
     hysteresis: int     # W
-
-
-@dataclass
-class ScheduleData:
-    """Parsed schedule from GET /data?key=schedule."""
-
-    active: ScheduleEntry  # The currently active slot (active: true)
+    start_at: datetime.datetime # UTC
+    active: bool        # True if this entry is currently active

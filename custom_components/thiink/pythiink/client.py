@@ -1,7 +1,8 @@
 import aiohttp
+from datetime import datetime
 
 from .exceptions import ThiinkConnectionError
-from .models import BatteryDetails, EmsData, GridDetails, PhaseValues, ScheduleData, ScheduleEntry, StatusData
+from .models import BatteryDetails, EmsData, GridDetails, PhaseValues, ScheduleEntry, StatusData
 
 
 class ThiinkClient:
@@ -49,35 +50,40 @@ class ThiinkClient:
             eth_status=raw["eth"]["status"],
         )
 
-    async def get_schedule(self) -> ScheduleData:
+    async def get_schedule(self) -> list[ScheduleEntry]:
         """Fetch /data?key=schedule — EMS schedule slots."""
-        entries = await self._get("/data?key=schedule")
-        active = next((e for e in entries if e.get("active") and e.get("type") == "ems"), None)
-        if active is None:
-            raise ThiinkConnectionError("No active EMS schedule entry found")
-        return ScheduleData(
-            active=ScheduleEntry(
-                mode=active["mode"],
-                dispatch=active["dispatch"],
-                trig_charge=active["trig_charge"],
-                trig_discharge=active["trig_discharge"],
-                max_charge=active["max_charge"],
-                max_discharge=active["max_discharge"],
-                max_export=active["max_export"],
-                max_import=active["max_import"],
-                min_soc=active["min_soc"],
-                max_soc=active["max_soc"],
-                hysteresis=active["hysteresis"],
+        raw = await self._get("/data?key=schedule")
+        return [
+            ScheduleEntry(
+                mode=e["mode"],
+                dispatch=e["dispatch"],
+                trig_charge=e["trig_charge"],
+                trig_discharge=e["trig_discharge"],
+                max_charge=e["max_charge"],
+                max_discharge=e["max_discharge"],
+                max_export=e["max_export"],
+                max_import=e["max_import"],
+                min_soc=e["min_soc"],
+                max_soc=e["max_soc"],
+                hysteresis=e["hysteresis"],
+                start_at=datetime.fromisoformat(e["start_at"]),
+                active=e.get("active", False),
             )
-        )
+            for e in raw
+            if e.get("type") == "ems"
+        ]
 
     async def _get(self, path: str) -> dict:
-        try:
-            async with self._session.get(
-                f"{self._base}{path}",
-                timeout=aiohttp.ClientTimeout(total=5),
-            ) as resp:
-                resp.raise_for_status()
-                return await resp.json(content_type=None)
-        except aiohttp.ClientError as err:
-            raise ThiinkConnectionError(f"Cannot reach device at {self._base}: {err}") from err
+        url = f"{self._base}{path}"
+        timeout = aiohttp.ClientTimeout(total=5)
+        for attempt in range(2):
+            try:
+                async with self._session.get(url, timeout=timeout) as resp:
+                    resp.raise_for_status()
+                    data = await resp.json(content_type=None)
+                    return data
+            except aiohttp.ClientError as err:
+                if isinstance(err, aiohttp.ServerDisconnectedError) and attempt == 0:
+                    # The device closed the TCP connection, retry once with fresh connection.
+                    continue
+                raise ThiinkConnectionError(f"Cannot reach device at {self._base}: {err}") from err

@@ -4,7 +4,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-from .pythiink import EmsData, ScheduleData, StatusData
+from .pythiink import EmsData, ScheduleEntry, StatusData
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -238,7 +238,7 @@ SCHEDULE_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         native_unit_of_measurement=None,
         device_class=None,
         state_class=None,
-        value_fn=lambda d: d.active.mode,
+        value_fn=lambda d: d.mode,
     ),
     ThiinkSensorEntityDescription(
         key="schedule_dispatch",
@@ -246,7 +246,7 @@ SCHEDULE_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: d.active.dispatch,
+        value_fn=lambda d: d.dispatch,
     ),
     ThiinkSensorEntityDescription(
         key="schedule_trig_charge",
@@ -254,7 +254,7 @@ SCHEDULE_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: d.active.trig_charge,
+        value_fn=lambda d: d.trig_charge,
     ),
     ThiinkSensorEntityDescription(
         key="schedule_trig_discharge",
@@ -262,7 +262,7 @@ SCHEDULE_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: d.active.trig_discharge,
+        value_fn=lambda d: d.trig_discharge,
     ),
     ThiinkSensorEntityDescription(
         key="schedule_max_charge",
@@ -270,7 +270,7 @@ SCHEDULE_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: d.active.max_charge,
+        value_fn=lambda d: d.max_charge,
     ),
     ThiinkSensorEntityDescription(
         key="schedule_max_discharge",
@@ -278,7 +278,7 @@ SCHEDULE_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: d.active.max_discharge,
+        value_fn=lambda d: d.max_discharge,
     ),
     ThiinkSensorEntityDescription(
         key="schedule_max_export",
@@ -286,7 +286,7 @@ SCHEDULE_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: d.active.max_export,
+        value_fn=lambda d: d.max_export,
     ),
     ThiinkSensorEntityDescription(
         key="schedule_max_import",
@@ -294,7 +294,7 @@ SCHEDULE_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: d.active.max_import,
+        value_fn=lambda d: d.max_import,
     ),
     ThiinkSensorEntityDescription(
         key="schedule_min_soc",
@@ -302,7 +302,7 @@ SCHEDULE_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: d.active.min_soc,
+        value_fn=lambda d: d.min_soc,
     ),
     ThiinkSensorEntityDescription(
         key="schedule_max_soc",
@@ -310,7 +310,7 @@ SCHEDULE_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: d.active.max_soc,
+        value_fn=lambda d: d.max_soc,
     ),
     ThiinkSensorEntityDescription(
         key="schedule_hysteresis",
@@ -318,7 +318,7 @@ SCHEDULE_SENSORS: tuple[ThiinkSensorEntityDescription, ...] = (
         native_unit_of_measurement=UnitOfPower.WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: d.active.hysteresis,
+        value_fn=lambda d: d.hysteresis,
     ),
 )
 
@@ -331,7 +331,7 @@ async def async_setup_entry(
     coordinators = hass.data[DOMAIN][entry.entry_id]
     ems_coord: DataUpdateCoordinator[EmsData] = coordinators["ems"]
     status_coord: DataUpdateCoordinator[StatusData] = coordinators["status"]
-    schedule_coord: DataUpdateCoordinator[ScheduleData] = coordinators["schedule"]
+    schedule_coord: DataUpdateCoordinator[ScheduleEntry] = coordinators["schedule"]
     status = status_coord.data
 
     device_info = DeviceInfo(

@@ -53,7 +53,7 @@ class ThiinkClient:
     async def get_schedule(self) -> list[ScheduleEntry]:
         """Fetch /data?key=schedule — EMS schedule slots."""
         raw = await self._get("/data?key=schedule")
-        return [
+        entries = [
             ScheduleEntry(
                 mode=e["mode"],
                 dispatch=e["dispatch"],
@@ -72,6 +72,8 @@ class ThiinkClient:
             for e in raw
             if e.get("type") == "ems"
         ]
+        entries.sort(key=lambda entry: entry.start_at)
+        return entries
 
     async def _get(self, path: str) -> dict:
         url = f"{self._base}{path}"
